@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>How old are you?</title>
+		<script type="text/javascript">
+
+			var message;
+
+			function formReset()
+			{
+				message="";
+				document.getElementById("result").innerHTML=message;
+				document.getElementById("dayForm").value = "";
+			}
+
+		
+			function Disney()
+			{
+				alert("未滿18歲送去迪士尼~");
+				setTimeout(window.location.replace("https://www.tokyodisneyresort.jp/tc/index.html"),500);
+			}
+
+			function age(year, month, day)
+			{
+				var today = new Date();
+				var n_year = today.getFullYear();
+				var n_month = today.getMonth()+1;
+				var n_day = today.getDate();
+
+				var Age = n_year - year;
+				if(n_month<month||(n_month==month&&n_day<day)) Age--;
+
+				if(n_year<year||(n_year<=year&&n_month<month)||(n_year<=year&&n_month<=month&&n_day<day)) 
+				{
+					alert("Error!!");
+					formReset();	
+				}
+				else
+				{
+					message = "<p>" + "你的年紀：" + "&nbsp;" + Age + "</p>";
+					if(n_month==month&&n_day==day) message += "<p>Happy Birthday!!</p>";
+					if(Age<18)
+						setTimeout(Disney, 500);
+				}
+
+				document.getElementById("result").innerHTML = message;
+			}
+			
+
+			function buttonPressed()
+			{
+				var birthday = new Date(document.getElementById("birthday").value);
+				var year = birthday.getFullYear();
+				var month = birthday.getMonth()+1;
+				var day = birthday.getDate();
+				//document.getElementById("result").innerHTML = "<p>" + year + "-" + month + "-" + day + "</p>";
+				age(year, month, day);
+			}
+			
+		</script>
+	</head>
+	<body>
+		<form id="dayForm" action="#">
+			<p>
+				<label>輸入生日：
+					<input id="birthday" type="date" required>
+				</label>
+			</p>
+			<p>
+				<input id="calculate" type="submit" value="計算年齡" onclick="buttonPressed()">
+				<input id="reset" type="reset" value="Reset" onclick="formReset()">
+			</p>
+			
+		</form>
+		<div id="result"></div>
+	</body>
+</html>
